@@ -43,8 +43,12 @@ const userStore = useUserStore()
 const beforeImageUpload = (file) => {
   const isJPG = file.type === 'image/jpeg'
   const isPng = file.type === 'image/png'
+  const isGif = file.type === 'image/gif'
+  const isSvg = file.type === 'image/svg+xml'
+  const isMp4 = file.type === 'video/mp4'  
+
   if (!isJPG && !isPng) {
-    ElMessage.error('上传头像图片只能是 jpg或png 格式!')
+    ElMessage.error('上传支持jpg,png,gif,svg,mp4!')
     return false
   }
 

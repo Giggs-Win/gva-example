@@ -27,14 +27,13 @@
       <el-table
         ref="multipleTable"
         :data="tableData"
+        :default-sort="{ prop: 'sort', order: 'ascending' }"
         style="width: 100%"
         tooltip-effect="dark"
         row-key="ID"
       >
         <el-table-column type="selection" width="55" />
-        <el-table-column align="left" label="日期" width="180">
-          <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
-        </el-table-column>
+
 
         <el-table-column align="left" label="展示值" prop="label" width="120" />
 
@@ -45,7 +44,9 @@
         </el-table-column>
 
         <el-table-column align="left" label="排序标记" prop="sort" width="120" />
-
+        <el-table-column align="left" label="日期" width="180">
+          <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
+        </el-table-column>
         <el-table-column align="left" label="按钮组">
           <template #default="scope">
             <el-button size="small" type="primary" link icon="edit" @click="updateSysDictionaryDetailFunc(scope.row)">变更</el-button>

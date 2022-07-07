@@ -62,6 +62,7 @@ func (dictionaryService *DictionaryService) UpdateSysDictionary(sysDictionary *s
 		"Name":   sysDictionary.Name,
 		"Type":   sysDictionary.Type,
 		"Status": sysDictionary.Status,
+		"Sort":   sysDictionary.Sort,
 		"Desc":   sysDictionary.Desc,
 	}
 	db := global.GVA_DB.Where("id = ?", sysDictionary.ID).First(&dict)

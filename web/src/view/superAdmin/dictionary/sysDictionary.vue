@@ -47,16 +47,12 @@
       <el-table
         ref="multipleTable"
         :data="tableData"
+        :default-sort="{ prop: 'sort', order: 'descending' }"
         style="width: 100%"
         tooltip-effect="dark"
         row-key="ID"
       >
         <el-table-column type="selection" width="55" />
-        <el-table-column align="left" label="日期" width="180">
-          <template #default="scope">{{
-            formatDate(scope.row.CreatedAt)
-          }}</template>
-        </el-table-column>
 
         <el-table-column
           align="left"
@@ -77,8 +73,13 @@
             formatBoolean(scope.row.status)
           }}</template>
         </el-table-column>
-
+        <el-table-column align="left" label="排序" prop="sort" width="280" />
         <el-table-column align="left" label="描述" prop="desc" width="280" />
+        <el-table-column align="left" label="日期" width="180">
+          <template #default="scope">{{
+            formatDate(scope.row.CreatedAt)
+          }}</template>
+        </el-table-column>
 
         <el-table-column align="left" label="按钮组">
           <template #default="scope">
@@ -151,7 +152,6 @@
         ref="dialogForm"
         :model="formData"
         :rules="rules"
-        size="medium"
         label-width="110px"
       >
         <el-form-item label="字典名（中）" prop="name">
@@ -177,6 +177,9 @@
             inactive-text="停用"
           />
         </el-form-item>
+        <el-form-item label="排序" prop="sort">
+          <el-input-number v-model.number="formData.sort" placeholder="排序" />
+        </el-form-item>
         <el-form-item label="描述" prop="desc">
           <el-input
             v-model="formData.desc"
@@ -189,11 +192,7 @@
       <template #footer>
         <div class="dialog-footer">
           <el-button size="small" @click="closeDialog">取 消</el-button>
-          <el-button
-            size="small"
-            type="primary"
-            @click="enterDialog"
-          >确 定</el-button>
+          <el-button size="small" type="primary" @click="enterDialog">确 定</el-button>
         </div>
       </template>
     </el-dialog>
@@ -226,6 +225,7 @@ const formData = ref({
   name: null,
   type: null,
   status: true,
+  sort:null,
   desc: null,
 })
 const rules = ref({
@@ -295,6 +295,9 @@ const getTableData = async() => {
     total.value = table.data.total
     page.value = table.data.page
     pageSize.value = table.data.pageSize
+    // console.log("-----")
+    // console.log(table.data.list)
+    // console.log("=====")
   }
 }
 
@@ -314,6 +317,7 @@ const type = ref('')
 const updateSysDictionaryFunc = async(row) => {
   const res = await findSysDictionary({ ID: row.ID, status: row.status })
   type.value = 'update'
+  console.log(res.data)
   if (res.code === 0) {
     formData.value = res.data.resysDictionary
     dialogFormVisible.value = true
@@ -325,6 +329,7 @@ const closeDialog = () => {
     name: null,
     type: null,
     status: true,
+    sort: null,
     desc: null,
   }
 }
@@ -353,6 +358,9 @@ const enterDialog = async() => {
         res = await createSysDictionary(formData.value)
         break
       case 'update':
+        console.log("-----")
+        console.log(formData.value)
+        console.log("=====")        
         res = await updateSysDictionary(formData.value)
         break
       default:

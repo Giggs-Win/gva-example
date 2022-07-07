@@ -1,6 +1,6 @@
 
 <div align=center>
-<img src="http://qmplusimg.henrongyi.top/gvalogo.jpg" width=300" height="300" />
+<img src="https://www.gin-vue-admin.com/assets/images/gvalogo-8dbf8a4bbcc4235f266552b91b9d2415.jpg" width=300" height="300" />
 </div>
 <div align=center>
 <img src="https://img.shields.io/badge/golang-1.16-blue"/>
@@ -10,7 +10,7 @@
 <img src="https://img.shields.io/badge/gorm-1.22.5-red"/>
 </div>
 
-[English](./README-en.md) | 简体中文
+[English](./README-en.md) | 简体中文  | [例子更新](./Modification.md)
 
 ## 不同版本
 
