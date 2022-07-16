@@ -295,9 +295,6 @@ const getTableData = async() => {
     total.value = table.data.total
     page.value = table.data.page
     pageSize.value = table.data.pageSize
-    // console.log("-----")
-    // console.log(table.data.list)
-    // console.log("=====")
   }
 }
 
@@ -317,7 +314,6 @@ const type = ref('')
 const updateSysDictionaryFunc = async(row) => {
   const res = await findSysDictionary({ ID: row.ID, status: row.status })
   type.value = 'update'
-  console.log(res.data)
   if (res.code === 0) {
     formData.value = res.data.resysDictionary
     dialogFormVisible.value = true
@@ -358,9 +354,6 @@ const enterDialog = async() => {
         res = await createSysDictionary(formData.value)
         break
       case 'update':
-        console.log("-----")
-        console.log(formData.value)
-        console.log("=====")        
         res = await updateSysDictionary(formData.value)
         break
       default:

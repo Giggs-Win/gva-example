@@ -2,9 +2,12 @@ package request
 
 // PageInfo Paging common input parameter structure
 type PageInfo struct {
-	Page     int    `json:"page" form:"page"`         // 页码
-	PageSize int    `json:"pageSize" form:"pageSize"` // 每页大小
-	Keyword  string `json:"keyword" form:"keyword"`   //关键字
+	Page     int    `json:"page" form:"page"`               // 页码
+	PageSize int    `json:"pageSize" form:"pageSize"`       // 每页大小
+	Keyword  string `json:"keyword" form:"keyword"`         //关键字
+	Tag      string `json:"tag" form:"tag"`                 //标签
+	CateId   *int   `json:"category_id" form:"category_id"` //标签
+	//*int `json:"categoryId" form:"categoryId" gorm:"column:category_id;comment:分类;size:19;"`
 }
 
 // GetById Find by id structure

@@ -12,6 +12,14 @@ import (
 
 type FileUploadAndDownloadApi struct{}
 
+type ExaFileUploadAndDownloadSearch struct {
+	example.ExaFileUploadAndDownload
+	CategoryId int
+	Name       string
+	Tag        string
+	request.PageInfo
+}
+
 // @Tags ExaFileUploadAndDownload
 // @Summary 上传文件示例
 // @Security ApiKeyAuth
@@ -50,6 +58,30 @@ func (b *FileUploadAndDownloadApi) EditFileName(c *gin.Context) {
 	response.OkWithMessage("编辑成功", c)
 }
 
+// EditTag 编辑Tag
+func (b *FileUploadAndDownloadApi) EditTag(c *gin.Context) {
+	var file example.ExaFileUploadAndDownload
+	_ = c.ShouldBindJSON(&file)
+	if err := fileUploadAndDownloadService.EditTag(file); err != nil {
+		global.GVA_LOG.Error("编辑失败!", zap.Error(err))
+		response.FailWithMessage("编辑失败", c)
+		return
+	}
+	response.OkWithMessage("编辑成功", c)
+}
+
+// ChangeCategory 更新分类
+func (b *FileUploadAndDownloadApi) ChangeCategory(c *gin.Context) {
+	var file example.ExaFileUploadAndDownload
+	_ = c.ShouldBindJSON(&file)
+	if err := fileUploadAndDownloadService.ChangeCategory(file); err != nil {
+		global.GVA_LOG.Error("编辑失败!", zap.Error(err))
+		response.FailWithMessage("编辑失败", c)
+		return
+	}
+	response.OkWithMessage("编辑成功", c)
+}
+
 // @Tags ExaFileUploadAndDownload
 // @Summary 删除文件
 // @Security ApiKeyAuth
@@ -78,6 +110,7 @@ func (b *FileUploadAndDownloadApi) DeleteFile(c *gin.Context) {
 // @Router /fileUploadAndDownload/getFileList [post]
 func (b *FileUploadAndDownloadApi) GetFileList(c *gin.Context) {
 	var pageInfo request.PageInfo
+	//var pageInfo ExaFileUploadAndDownloadSearch
 	_ = c.ShouldBindJSON(&pageInfo)
 	list, total, err := fileUploadAndDownloadService.GetFileRecordInfoList(pageInfo)
 	if err != nil {

@@ -4,27 +4,70 @@
       title="点击“文件名/备注”可以编辑文件名或者备注内容。"
     />
     <div class="gva-btn-list">
-      <upload-common
+      <!--<upload-common
         v-model:imageCommon="imageCommon"
         class="upload-btn-media-library"
         @on-success="open"
       />
-      <upload-image
+       <upload-image
         v-model:imageUrl="imageUrl"
         :file-size="512"
         :max-w-h="1080"
         class="upload-btn-media-library"
         @on-success="open"
-      />
-      <el-form ref="searchForm" :inline="true" :model="search">
-        <el-form-item label="">
-          <el-input v-model="search.keyword" class="keyword" placeholder="请输入文件名或备注" />
-        </el-form-item>
+      /> -->
+      <el-form ref="searchForm" :inline="true"><!--:model="search">-->
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="">
+              <el-select v-model="searchInfo.category_id" clearable placeholder="选择分类">
+                <el-option v-for="(item,key) in imgCategoryOptions" :key="key" :label="item.label" :value="item.value" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="">
+              <el-input v-model="searchInfo.tag" placeholder="请输入标签" />
+            </el-form-item>
+          </el-col>
+          </el-row>
+          <el-row>
+          <el-col :span="12">
+            <el-form-item label="">
+              <el-input v-model="searchInfo.keyword" class="keyword" placeholder="请输入文件名或备注" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item>
+              <el-button size="small" type="primary" icon="search" @click="open">查询</el-button>
+              <el-button size="small" icon="refresh" @click="onReset">重置</el-button>
+            </el-form-item>
+          </el-col>
+        </el-row>
 
+
+        <el-form-item label="">
+          <el-select v-model="searchInfo.category_id" clearable placeholder="选择分类">
+            <el-option v-for="(item,key) in imgCategoryOptions" :key="key" :label="item.label" :value="item.value" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="">
+          <el-input v-model="searchInfo.tag" placeholder="请输入标签" />
+        </el-form-item>
+        <el-form-item label="">
+          <el-input v-model="searchInfo.keyword" class="keyword" placeholder="请输入文件名或备注" />
+        </el-form-item>
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="open">查询</el-button>
+          <el-button size="small" icon="refresh" @click="onReset">重置</el-button>
         </el-form-item>
       </el-form>
+      <!--普通上传
+      <upload-common
+        v-model:imageCommon="imageCommon"
+        class="upload-btn-media-library"
+        @on-success="open"
+      />-->
     </div>
     <div class="media">
       <div v-for="(item,key) in picList" :key="key" class="media-box">
@@ -32,8 +75,7 @@
           <el-image
             :key="key"
             :src="(item.url && item.url.slice(0, 4) !== 'http')?path+item.url:item.url"
-            @click="chooseImg(item.url,target,targetKey)"
-          >
+            @click="chooseImg(item.url,target,targetKey)">
             <template #error>
               <div class="header-img-box-list">
                 <el-icon>
@@ -60,19 +102,29 @@
 
 <script setup>
 import { ref } from 'vue'
-import { getFileList, editFileName } from '@/api/fileUploadAndDownload'
+import { ElMessage, ElMessageBox } from 'element-plus'
+
 import UploadImage from '@/components/upload/image.vue'
 import UploadCommon from '@/components/upload/common.vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
 import warningBar from '@/components/warningBar/warningBar.vue'
+
+import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/format'
+
+import { getFileList, editFileName, editTag, changeCategory } from '@/api/fileUploadAndDownload'
+
 
 const imageUrl = ref('')
 const imageCommon = ref('')
 
-const search = ref({})
+const searchInfo = ref({})
 const page = ref(1)
 const total = ref(0)
-const pageSize = ref(20)
+const pageSize = ref(50)
+
+// 重置
+const onReset = () => {
+  searchInfo.value = {}
+}
 
 // 分页
 const handleSizeChange = (val) => {
@@ -99,7 +151,7 @@ defineProps({
 
 const drawer = ref(false)
 const picList = ref([])
-const path = ref(import.meta.env.VITE_BASE_API + '/')
+const path = ref(import.meta.env.VITE_BASE_API)
 
 const chooseImg = (url, target, targetKey) => {
   if (target && targetKey) {
@@ -110,7 +162,7 @@ const chooseImg = (url, target, targetKey) => {
 }
 
 const open = async() => {
-  const res = await getFileList({ page: page.value, pageSize: pageSize.value, ...search.value })
+  const res = await getFileList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
   if (res.code === 0) {
     picList.value = res.data.list
     total.value = res.data.total
@@ -119,6 +171,18 @@ const open = async() => {
     drawer.value = true
   }
 }
+
+const imgCategoryOptions = ref([])
+
+// 获取需要的字典 可能为空 按需保留
+const setOptions = async () =>{
+    imgCategoryOptions.value = await getDictFunc('imgCategory')
+    // console.log('------------')
+    console.log(imgCategoryOptions.value)
+}
+
+// 获取需要的字典 可能为空 按需保留
+setOptions()
 
 /**
  * 编辑文件名或者备注
@@ -134,7 +198,6 @@ const editFileNameFunc = async(row) => {
     inputValue: row.name
   }).then(async({ value }) => {
     row.name = value
-    // console.log(row)
     const res = await editFileName(row)
     if (res.code === 0) {
       ElMessage({
@@ -164,7 +227,7 @@ defineExpose({ open })
   flex-wrap: wrap;
 
   .media-box {
-    width: 120px;
+    width: 80px;
     margin-left: 20px;
 
     .img-title {
@@ -177,17 +240,17 @@ defineExpose({ open })
     }
 
     .header-img-box-list {
-      width: 120px;
-      height: 120px;
+      width: 80px;
+      height: 80px;
       border: 1px dashed #ccc;
       border-radius: 8px;
       text-align: center;
-      line-height: 120px;
+      line-height: 80px;
       cursor: pointer;
       overflow: hidden;
       .el-image__inner {
-        max-width: 120px;
-        max-height: 120px;
+        max-width: 80px;
+        max-height: 80px;
         vertical-align: middle;
         width: unset;
         height: unset;

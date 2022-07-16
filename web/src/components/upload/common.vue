@@ -1,15 +1,16 @@
 <template>
   <div>
     <el-upload
-        :action="`${path}/fileUploadAndDownload/upload`"
-        :before-upload="checkFile"
-        :headers="{ 'x-token': userStore.token }"
-        :on-error="uploadError"
-        :on-success="uploadSuccess"
-        :show-file-list="false"
-        class="upload-btn"
+      :action="`${path}/fileUploadAndDownload/upload`"
+      :before-upload="checkFile"
+      :headers="{ 'x-token': userStore.token }"
+      multiple
+      :on-error="uploadError"
+      :on-success="uploadSuccess"
+      :show-file-list="false"
+      class="upload-btn"
     >
-      <el-button size="small" type="primary">普通上传</el-button>
+      <el-button class="pading-5" size="small" type="success">普通上传</el-button>
     </el-upload>
   </div>
 </template>
@@ -75,3 +76,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.pading-5{
+  margin-top: 3px;
+}
+</style>

@@ -19,6 +19,8 @@ export const formatDate = (time) => {
 
 export const filterDict = (value, options) => {
   const rowLabel = options && options.filter(item => item.value === value)
+  // console.log("value:",value)
+  // console.log("options:",options)
   return rowLabel && rowLabel[0] && rowLabel[0].label
 }
 

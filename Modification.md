@@ -47,6 +47,13 @@
     git branch -M main
     git push -u origin main
 ```
+* git
+```
+    git config --global user.email "xxxx@xxx.com"
+    git add .
+    git commit -m "note"
+    git push
+```
 ---
 
 #### 2.2 准备工作
@@ -250,6 +257,9 @@ web
  ├── vite.config.js             -- vite 配置文件
  └── yarn.lock
 ```
+#### 4.3 自动生成代码图
+* 生成代码结构 ![logo](./GvaAutoCode.png)
+
 
 ### *. 其它知识点
 #### 5.1 VUE生命周期的变化
@@ -372,8 +382,12 @@ web
     </el-form-item>
     ```
 
+#### 5.4 Element plus
+- Table
+> default-sort  :default-sort="{ prop: 'sort', order: 'ascending/descending' }"
 
 
-#### 5.4 ES6 =>箭头函数
+
+#### 5.5 ES6 =>箭头函数
 
 

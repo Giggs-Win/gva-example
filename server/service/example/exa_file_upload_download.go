@@ -59,6 +59,18 @@ func (e *FileUploadAndDownloadService) EditFileName(file example.ExaFileUploadAn
 	return global.GVA_DB.Where("id = ?", file.ID).First(&fileFromDb).Update("name", file.Name).Error
 }
 
+// EditTag 编辑Tag
+func (e *FileUploadAndDownloadService) EditTag(file example.ExaFileUploadAndDownload) (err error) {
+	var fileFromDb example.ExaFileUploadAndDownload
+	return global.GVA_DB.Where("id = ?", file.ID).First(&fileFromDb).Update("tag", file.Tag).Error
+}
+
+// ChangeCategory
+func (e *FileUploadAndDownloadService) ChangeCategory(file example.ExaFileUploadAndDownload) (err error) {
+	var fileFromDb example.ExaFileUploadAndDownload
+	return global.GVA_DB.Where("id = ?", file.ID).First(&fileFromDb).Update("category_id", file.CategoryId).Error
+}
+
 //@author: [piexlmax](https://github.com/piexlmax)
 //@function: GetFileRecordInfoList
 //@description: 分页获取数据
@@ -69,16 +81,29 @@ func (e *FileUploadAndDownloadService) GetFileRecordInfoList(info request.PageIn
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	keyword := info.Keyword
+	tag := info.Tag
+	categoryId := info.CateId
+
 	db := global.GVA_DB.Model(&example.ExaFileUploadAndDownload{})
 	var fileLists []example.ExaFileUploadAndDownload
 	if len(keyword) > 0 {
 		db = db.Where("name LIKE ?", "%"+keyword+"%")
+		global.GVA_LOG.Info(keyword)
 	}
+	if len(tag) > 0 {
+		db = db.Where("tag LIKE ?", "%"+tag+"%")
+		global.GVA_LOG.Info(tag)
+	}
+	if categoryId != nil {
+		db = db.Where("category_id = ?", categoryId)
+		global.GVA_LOG.Info("categoryId")
+	}
+
 	err = db.Count(&total).Error
 	if err != nil {
 		return
 	}
-	err = db.Limit(limit).Offset(offset).Order("updated_at desc").Find(&fileLists).Error
+	err = db.Limit(limit).Offset(offset).Order("created_at desc").Find(&fileLists).Error
 	return fileLists, total, err
 }
 
@@ -97,10 +122,11 @@ func (e *FileUploadAndDownloadService) UploadFile(header *multipart.FileHeader, 
 	if noSave == "0" {
 		s := strings.Split(header.Filename, ".")
 		f := example.ExaFileUploadAndDownload{
-			Url:  filePath,
-			Name: header.Filename,
-			Tag:  s[len(s)-1],
-			Key:  key,
+			Url:        filePath,
+			Name:       header.Filename,
+			CategoryId: 0,
+			Tag:        s[len(s)-1],
+			Key:        key,
 		}
 		return f, e.Upload(f)
 	}

@@ -42,3 +42,29 @@ export const editFileName = (data) => {
     data
   })
 }
+
+/**
+ * 编辑Tag
+ * @param data
+ * @returns {*}
+ */
+ export const editTag = (data) => {
+  return service({
+    url: '/fileUploadAndDownload/editTag',
+    method: 'post',
+    data
+  })
+}
+
+/**
+ * 更改分类
+ * @param data
+ * @returns {*}
+ */
+ export const changeCategory = (data) => {
+  return service({
+    url: '/fileUploadAndDownload/changeCategory',
+    method: 'post',
+    data
+  })
+}
