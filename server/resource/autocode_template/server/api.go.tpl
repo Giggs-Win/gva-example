@@ -18,7 +18,6 @@ var {{.Abbreviation}}Service = service.ServiceGroupApp.{{.PackageT}}ServiceGroup
 
 
 // Create{{.StructName}} 创建{{.StructName}}
-// @Author: GVA AutoCode
 // @Param:  data body {{.Package}}.{{.StructName}} true "创建{{.StructName}}"
 // @Success:200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router: /{{.Abbreviation}}/create{{.StructName}} [post]
@@ -35,7 +34,6 @@ func ({{.Abbreviation}}Api *{{.StructName}}Api) Create{{.StructName}}(c *gin.Con
 }
 
 // Delete{{.StructName}} 删除{{.StructName}}
-// @Author: GVA AutoCode
 // @Param data body {{.Package}}.{{.StructName}} true "删除{{.StructName}}"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /{{.Abbreviation}}/delete{{.StructName}} [delete]
@@ -52,7 +50,6 @@ func ({{.Abbreviation}}Api *{{.StructName}}Api) Delete{{.StructName}}(c *gin.Con
 }
 
 // Delete{{.StructName}}ByIds 批量删除{{.StructName}}
-// @Author: GVA AutoCode
 // @Param data body request.IdsReq true "批量删除{{.StructName}}"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
 // @Router /{{.Abbreviation}}/delete{{.StructName}}ByIds [delete]
@@ -69,7 +66,6 @@ func ({{.Abbreviation}}Api *{{.StructName}}Api) Delete{{.StructName}}ByIds(c *gi
 }
 
 // Update{{.StructName}} 更新{{.StructName}}
-// @Author: GVA AutoCode
 // @Param data body {{.Package}}.{{.StructName}} true "更新{{.StructName}}"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /{{.Abbreviation}}/update{{.StructName}} [put]
@@ -86,7 +82,6 @@ func ({{.Abbreviation}}Api *{{.StructName}}Api) Update{{.StructName}}(c *gin.Con
 }
 
 // Find{{.StructName}} 用id查询{{.StructName}}
-// @Author: GVA AutoCode
 // @Param data query {{.Package}}.{{.StructName}} true "用id查询{{.StructName}}"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /{{.Abbreviation}}/find{{.StructName}} [get]
@@ -103,7 +98,6 @@ func ({{.Abbreviation}}Api *{{.StructName}}Api) Find{{.StructName}}(c *gin.Conte
 }
 
 // Get{{.StructName}}List 分页获取{{.StructName}}列表
-// @Author: GVA AutoCode
 // @Param data query {{.Package}}Req.{{.StructName}}Search true "分页获取{{.StructName}}列表"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /{{.Abbreviation}}/get{{.StructName}}List [get]
