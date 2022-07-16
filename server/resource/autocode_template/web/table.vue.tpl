@@ -304,7 +304,6 @@ const update{{.StructName}}Func = async(row) => {
     }
 }
 
-
 // 删除行
 const delete{{.StructName}}Func = async (row) => {
     const res = await delete{{.StructName}}({ ID: row.ID })

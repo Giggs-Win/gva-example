@@ -17,11 +17,6 @@ type MatchApi struct {
 var matchService = service.ServiceGroupApp.PkgmatchServiceGroup.MatchService
 
 // CreateMatch 创建Match
-// @Tags Match
-// @Summary 创建Match
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
 // @Param data body pkgMatch.Match true "创建Match"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /match/createMatch [post]
@@ -37,11 +32,6 @@ func (matchApi *MatchApi) CreateMatch(c *gin.Context) {
 }
 
 // DeleteMatch 删除Match
-// @Tags Match
-// @Summary 删除Match
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
 // @Param data body pkgMatch.Match true "删除Match"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /match/deleteMatch [delete]
@@ -57,11 +47,6 @@ func (matchApi *MatchApi) DeleteMatch(c *gin.Context) {
 }
 
 // DeleteMatchByIds 批量删除Match
-// @Tags Match
-// @Summary 批量删除Match
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
 // @Param data body request.IdsReq true "批量删除Match"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
 // @Router /match/deleteMatchByIds [delete]
@@ -77,11 +62,6 @@ func (matchApi *MatchApi) DeleteMatchByIds(c *gin.Context) {
 }
 
 // UpdateMatch 更新Match
-// @Tags Match
-// @Summary 更新Match
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
 // @Param data body pkgMatch.Match true "更新Match"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /match/updateMatch [put]
@@ -97,11 +77,6 @@ func (matchApi *MatchApi) UpdateMatch(c *gin.Context) {
 }
 
 // FindMatch 用id查询Match
-// @Tags Match
-// @Summary 用id查询Match
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
 // @Param data query pkgMatch.Match true "用id查询Match"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /match/findMatch [get]
@@ -118,11 +93,6 @@ func (matchApi *MatchApi) FindMatch(c *gin.Context) {
 }
 
 // GetMatchList 分页获取Match列表
-// @Tags Match
-// @Summary 分页获取Match列表
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
 // @Param data query pkgMatchReq.MatchSearch true "分页获取Match列表"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /match/getMatchList [get]

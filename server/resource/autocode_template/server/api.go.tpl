@@ -18,14 +18,11 @@ var {{.Abbreviation}}Service = service.ServiceGroupApp.{{.PackageT}}ServiceGroup
 
 
 // Create{{.StructName}} 创建{{.StructName}}
-// @Tags {{.StructName}}
-// @Summary 创建{{.StructName}}
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body {{.Package}}.{{.StructName}} true "创建{{.StructName}}"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /{{.Abbreviation}}/create{{.StructName}} [post]
+// @Author: GVA AutoCode
+// @Param:  data body {{.Package}}.{{.StructName}} true "创建{{.StructName}}"
+// @Success:200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router: /{{.Abbreviation}}/create{{.StructName}} [post]
+// @Update: 
 func ({{.Abbreviation}}Api *{{.StructName}}Api) Create{{.StructName}}(c *gin.Context) {
 	var {{.Abbreviation}} {{.Package}}.{{.StructName}}
 	_ = c.ShouldBindJSON(&{{.Abbreviation}})
@@ -38,14 +35,11 @@ func ({{.Abbreviation}}Api *{{.StructName}}Api) Create{{.StructName}}(c *gin.Con
 }
 
 // Delete{{.StructName}} 删除{{.StructName}}
-// @Tags {{.StructName}}
-// @Summary 删除{{.StructName}}
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
+// @Author: GVA AutoCode
 // @Param data body {{.Package}}.{{.StructName}} true "删除{{.StructName}}"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
 // @Router /{{.Abbreviation}}/delete{{.StructName}} [delete]
+// @Update: 
 func ({{.Abbreviation}}Api *{{.StructName}}Api) Delete{{.StructName}}(c *gin.Context) {
 	var {{.Abbreviation}} {{.Package}}.{{.StructName}}
 	_ = c.ShouldBindJSON(&{{.Abbreviation}})
@@ -58,14 +52,11 @@ func ({{.Abbreviation}}Api *{{.StructName}}Api) Delete{{.StructName}}(c *gin.Con
 }
 
 // Delete{{.StructName}}ByIds 批量删除{{.StructName}}
-// @Tags {{.StructName}}
-// @Summary 批量删除{{.StructName}}
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
+// @Author: GVA AutoCode
 // @Param data body request.IdsReq true "批量删除{{.StructName}}"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
 // @Router /{{.Abbreviation}}/delete{{.StructName}}ByIds [delete]
+// @Update: 
 func ({{.Abbreviation}}Api *{{.StructName}}Api) Delete{{.StructName}}ByIds(c *gin.Context) {
 	var IDS request.IdsReq
     _ = c.ShouldBindJSON(&IDS)
@@ -78,14 +69,11 @@ func ({{.Abbreviation}}Api *{{.StructName}}Api) Delete{{.StructName}}ByIds(c *gi
 }
 
 // Update{{.StructName}} 更新{{.StructName}}
-// @Tags {{.StructName}}
-// @Summary 更新{{.StructName}}
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
+// @Author: GVA AutoCode
 // @Param data body {{.Package}}.{{.StructName}} true "更新{{.StructName}}"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
 // @Router /{{.Abbreviation}}/update{{.StructName}} [put]
+// @Update: 
 func ({{.Abbreviation}}Api *{{.StructName}}Api) Update{{.StructName}}(c *gin.Context) {
 	var {{.Abbreviation}} {{.Package}}.{{.StructName}}
 	_ = c.ShouldBindJSON(&{{.Abbreviation}})
@@ -98,14 +86,11 @@ func ({{.Abbreviation}}Api *{{.StructName}}Api) Update{{.StructName}}(c *gin.Con
 }
 
 // Find{{.StructName}} 用id查询{{.StructName}}
-// @Tags {{.StructName}}
-// @Summary 用id查询{{.StructName}}
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
+// @Author: GVA AutoCode
 // @Param data query {{.Package}}.{{.StructName}} true "用id查询{{.StructName}}"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
 // @Router /{{.Abbreviation}}/find{{.StructName}} [get]
+// @Update: 
 func ({{.Abbreviation}}Api *{{.StructName}}Api) Find{{.StructName}}(c *gin.Context) {
 	var {{.Abbreviation}} {{.Package}}.{{.StructName}}
 	_ = c.ShouldBindQuery(&{{.Abbreviation}})
@@ -118,14 +103,11 @@ func ({{.Abbreviation}}Api *{{.StructName}}Api) Find{{.StructName}}(c *gin.Conte
 }
 
 // Get{{.StructName}}List 分页获取{{.StructName}}列表
-// @Tags {{.StructName}}
-// @Summary 分页获取{{.StructName}}列表
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
+// @Author: GVA AutoCode
 // @Param data query {{.Package}}Req.{{.StructName}}Search true "分页获取{{.StructName}}列表"
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
 // @Router /{{.Abbreviation}}/get{{.StructName}}List [get]
+// @Update: 
 func ({{.Abbreviation}}Api *{{.StructName}}Api) Get{{.StructName}}List(c *gin.Context) {
 	var pageInfo {{.Package}}Req.{{.StructName}}Search
 	_ = c.ShouldBindQuery(&pageInfo)
